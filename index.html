@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Привет, Telegram!</h1>
+        <p>Это простое приложение для Telegram Web Apps.</p>
+        <button id="sendMessage">Отправить сообщение</button>
+    </div>
+    <script>
+        // Проверяем, поддерживается ли Telegram Web App
+        if (window.Telegram.WebApp) {
+            const webApp = window.Telegram.WebApp;
+            
+            // Когда пользователь нажимает на кнопку, отправляем сообщение обратно в бот
+            document.getElementById("sendMessage").addEventListener("click", () => {
+                webApp.sendData("Привет, это сообщение из Web App!");
+            });
+        }
+    </script>
+</body>
+</html>
