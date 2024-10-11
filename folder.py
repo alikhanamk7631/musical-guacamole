@@ -1,21 +1,14 @@
-from telegram import Update, WebAppInfo
-from telegram.ext import ApplicationBuilder, CommandHandler
+import telebot
 
-# Функция для обработки команды /start
-async def start(update: Update, context):
-    # Отправляем кнопку, открывающую Web App
-    await update.message.reply_text(
-        "Откройте Web App!",
-        reply_markup={
-            "keyboard": [
-                [{"text": "Открыть Web App", "web_app": WebAppInfo(url="https://alikhanamk7631.github.io/musical-guacamole/")}]
-            ],
-            "resize_keyboard": True,
-            "one_time_keyboard": True,
-        }
-    )
+API_TOKEN = '7576474851:AAEWbC2mx8OrpwawkeOS94dxAkkifpEVnNE'
+bot = telebot.TeleBot(API_TOKEN)
 
-if _name_ == "_main_":
-    app = ApplicationBuilder().token('YOUR_BOT_TOKEN').build()
-    app.add_handler(CommandHandler("start", start))
-    app.run_polling()
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    web_app_url = telebot.types.WebAppInfo("https://alikhanamk7631.github.io/musical-guacamole/")  # Ссылка на твой сайт
+    web_app_button = telebot.types.InlineKeyboardButton(text="Открыть Web App", web_app=web_app_url)
+    keyboard.add(web_app_button)
+    bot.send_message(message.chat.id, "Привет! Нажми кнопку, чтобы открыть приложение:", reply_markup=keyboard)
+
+bot.infinity_polling()
